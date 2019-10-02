@@ -18,7 +18,7 @@ fi;
 rm -rf node_modules
 npm install
 
-npm run build;
+npm run build
 
 git add dist --all;
 git commit -m "Dist" || echo "Nothing to distribute";

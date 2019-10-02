@@ -18,7 +18,7 @@ export let Button = create({
     url: {
         test:       '/base/test/windows/button/index.htm',
         local:      'http://localhost:8000/button',
-        production: 'https://brainblocks.io/button.htm'
+        production: 'https://xrp.brainblocks.io/button.htm'
     },
 
     dimensions: {
@@ -29,7 +29,7 @@ export let Button = create({
     domain: {
         test:       'mock://www.my-site.com',
         local:      'http://localhost:8000',
-        production: 'https://brainblocks.io'
+        production: 'https://xrp.brainblocks.io'
     },
 
     props: {
@@ -95,14 +95,14 @@ export let Button = create({
                 if (!payment.destination) {
                     throw new Error(`Expected payment.destination`);
                 }
-                if (!payment.destination.match(/((?:xrb_[13][a-km-zA-HJ-NP-Z0-9]{59})|(?:nano_[13][a-km-zA-HJ-NP-Z0-9]{59}))/)) {
-                    throw new Error(`Invalid nano address: ${ payment.destination }`);
+                if (!payment.destination.match(/r[0-9a-zA-Z]{24,34}/)) {
+                    throw new Error(`Invalid ripple address: ${ payment.destination }`);
                 }
                 if (!payment.currency) {
                     throw new Error(`Expected payment.currency`);
                 }
                 if (payment.currency !== 'rai' && SUPPORTED_CURRENCIES.indexOf(payment.currency) === -1) {
-                    throw new Error(`Expected payment.currency to be rai or ${ SUPPORTED_CURRENCIES.join(', ') }, got ${ payment.currency }`);
+                    throw new Error(`Expected payment.currency to be drops or ${ SUPPORTED_CURRENCIES.join(', ') }, got ${ payment.currency }`);
                 }
                 if (!payment.amount) {
                     throw new Error(`Expected payment.amount`);
@@ -110,7 +110,7 @@ export let Button = create({
                 if (!payment.amount.toString().match(/^\d+(\.\d+)?$/)) {
                     throw new Error(`Expected payment.mount to be a number, got ${ payment.amount }`);
                 }
-                if (payment.paypal_email && (payment.currency === 'rai' || payment.currency === 'nano')) {
+                if (payment.paypal_email && (payment.currency === 'drops')) {
                     throw new Error(`Can only use PayPal with non-nano currency`);
                 }
             },
@@ -121,7 +121,7 @@ export let Button = create({
                 };
             }
         },
-        
+
         onToken: {
             type:     'function',
             required: false

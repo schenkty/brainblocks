@@ -160,5 +160,5 @@ export const SUPPORTED_CURRENCIES = [
     'zwl',
     'xag',
     'xau',
-    'raw'
+    'drops'
 ];
